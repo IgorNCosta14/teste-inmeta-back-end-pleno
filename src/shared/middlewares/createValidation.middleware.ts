@@ -21,6 +21,7 @@ export function createValidationMiddleware<T extends object>(
 
             if (errors.length > 0) {
                 return res.status(400).json({
+                    status: 400,
                     message: 'Validation failed',
                     errors: errors.map((err) => ({
                         field: err.property,
@@ -29,14 +30,13 @@ export function createValidationMiddleware<T extends object>(
                 });
             }
 
-            // req.validatedQuery = instance;
-
             return next();
         } catch (err) {
             console.error('Validation middleware error:', err);
             return res.status(500).json({
+                status: 500,
                 message: 'Internal Server Error',
-                error: err instanceof Error ? err.message : String(err),
+                stack: err
             });
         }
     };
