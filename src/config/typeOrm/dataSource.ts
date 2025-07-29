@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import { Employee } from '../../app/employee/entities/Employee.entity';
-import { DocumentTypes } from '../../app/document/entities/DocumentType.entity';
-import { Documents } from '../../app/document/entities/Document.entity';
+import { DocumentType } from '../../app/document/entities/DocumentType.entity';
+import { Document } from '../../app/document/entities/Document.entity';
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -12,7 +12,7 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities: [DocumentTypes, Employee, Documents],
+    entities: [DocumentType, Employee, Document],
     migrations: ['src/config/typeOrm/migrations/*.ts'],
     // migrations: [__dirname + '/src/config/typeOrm/migrations/**'],
 });

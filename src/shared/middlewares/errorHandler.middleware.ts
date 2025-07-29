@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { ErrorHandler } from '../errors/ErrorHandler';
 
 export function errorHandler(
     err: any,
@@ -6,12 +7,13 @@ export function errorHandler(
     res: Response,
     next: NextFunction
 ) {
-    const status = err.status || 500;
-    const message = err.message || 'Internal server error';
+    if (err instanceof ErrorHandler) {
+        return res.status(err.statusCode).json({ status: err.statusCode, message: err.message });
+    }
 
-    return res.status(status).json({
-        status,
-        message,
+    return res.status(500).json({
+        status: 500,
+        message: `Internal server error - ${err.message}`,
         stack: err.stack,
     });
 }

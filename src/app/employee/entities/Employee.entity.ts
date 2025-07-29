@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
   OneToMany
 } from 'typeorm';
-import { Documents } from '../../document/entities/Document.entity';
+import { Document } from '../../document/entities/Document.entity';
 
 @Entity('employees')
 export class Employee {
@@ -15,9 +15,6 @@ export class Employee {
 
   @Column()
   name: string;
-
-  @Column({ unique: true })
-  document: string;
 
   @Column()
   hiredAt: Date;
@@ -28,6 +25,6 @@ export class Employee {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Documents, (document) => document.employee)
-  documents: Documents[];
+  @OneToMany(() => Document, (document) => document.employee)
+  documents: Document[];
 }

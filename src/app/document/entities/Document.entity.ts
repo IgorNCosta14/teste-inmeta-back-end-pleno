@@ -7,13 +7,13 @@ import {
     UpdateDateColumn,
     JoinColumn
 } from 'typeorm';
-import { DocumentTypes } from './DocumentType.entity';
+import { DocumentType } from './DocumentType.entity';
 import { Employee } from '../../employee/entities/Employee.entity';
 
 export type DocumentStatus = 'enviado' | 'pendente';
 
 @Entity('documents')
-export class Documents {
+export class Document {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -27,9 +27,9 @@ export class Documents {
     @JoinColumn({ name: 'employee_id' })
     employee: Employee;
 
-    @ManyToOne(() => DocumentTypes, (documentType) => documentType.documents, { onDelete: 'CASCADE' })
+    @ManyToOne(() => DocumentType, (documentType) => documentType.documents, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'document_type_id' })
-    DocumentTypes: DocumentTypes;
+    DocumentTypes: DocumentType;
 
     @CreateDateColumn()
     createdAt: Date;

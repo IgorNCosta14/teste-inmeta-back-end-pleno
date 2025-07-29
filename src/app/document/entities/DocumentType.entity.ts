@@ -6,10 +6,10 @@ import {
     UpdateDateColumn,
     OneToMany
 } from 'typeorm';
-import { Documents } from './Document.entity';
+import { Document } from './Document.entity';
 
 @Entity('document_types')
-export class DocumentTypes {
+export class DocumentType {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -22,6 +22,6 @@ export class DocumentTypes {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @OneToMany(() => Documents, (document) => document.DocumentTypes)
-    documents: Documents[];
+    @OneToMany(() => Document, (document) => document.DocumentTypes)
+    documents: Document[];
 }
