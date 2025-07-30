@@ -8,7 +8,7 @@ export function errorHandler(
     next: NextFunction
 ) {
     if (err instanceof ErrorHandler) {
-        return res.status(err.statusCode).json({ status: err.statusCode, message: err.message });
+        return res.status(err.statusCode).json({ status: err.statusCode, message: err.message, errors: err.details ? err.details : undefined });
     }
 
     return res.status(500).json({
