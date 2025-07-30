@@ -4,7 +4,8 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToMany
+    OneToMany,
+    DeleteDateColumn
 } from 'typeorm';
 import { Document } from './Document.entity';
 
@@ -16,12 +17,15 @@ export class DocumentType {
     @Column({ unique: true })
     name: string;
 
-    @CreateDateColumn()
+    @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-    @OneToMany(() => Document, (document) => document.DocumentTypes)
+    @DeleteDateColumn({ name: 'deleted_at', nullable: true })
+    deletedAt: Date;
+
+    @OneToMany(() => Document, (document) => document.documentType)
     documents: Document[];
 }

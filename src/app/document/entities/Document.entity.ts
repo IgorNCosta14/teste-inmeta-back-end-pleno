@@ -9,8 +9,7 @@ import {
 } from 'typeorm';
 import { DocumentType } from './DocumentType.entity';
 import { Employee } from '../../employee/entities/Employee.entity';
-
-export type DocumentStatus = 'enviado' | 'pendente';
+import { DocumentStatus } from '../enums/DocumentStatus.enum';
 
 @Entity('documents')
 export class Document {
@@ -20,7 +19,10 @@ export class Document {
     @Column()
     name: string;
 
-    @Column({ type: 'enum', enum: ['enviado', 'pendente'], default: 'pendente' })
+    @Column({ type: 'varchar', nullable: true })
+    url: string | null;
+
+    @Column({ type: 'enum', enum: DocumentStatus, default: DocumentStatus.PENDING })
     status: DocumentStatus;
 
     @ManyToOne(() => Employee, (employee) => employee.documents, { onDelete: 'CASCADE' })
@@ -29,11 +31,11 @@ export class Document {
 
     @ManyToOne(() => DocumentType, (documentType) => documentType.documents, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'document_type_id' })
-    DocumentTypes: DocumentType;
+    documentType: DocumentType;
 
-    @CreateDateColumn()
+    @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
-    @UpdateDateColumn()
+    @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 }

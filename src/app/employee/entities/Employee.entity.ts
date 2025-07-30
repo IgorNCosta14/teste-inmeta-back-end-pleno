@@ -16,13 +16,13 @@ export class Employee {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ name: 'hired_at' })
   hiredAt: Date;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
   @OneToMany(() => Document, (document) => document.employee)

@@ -1,7 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { Employee } from "../entities/Employee.entity";
 import { IEmployeeRepository } from "../repositories/IEmployeeRepository";
-import { CreateEmployeeDto } from "../dtos/CreateEmployee.dto";
 import { ErrorHandler } from "../../../shared/errors/ErrorHandler";
 import { UpdateEmployeeDto } from "../dtos/UpdateEmployee.dto";
 
