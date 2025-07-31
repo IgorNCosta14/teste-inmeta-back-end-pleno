@@ -44,6 +44,18 @@ export function createValidationMiddleware<T extends object>(
                 });
             }
 
+            switch (source) {
+                case 'body':
+                    req.validatedBody = instance;
+                    break;
+                case 'query':
+                    req.validatedQuery = instance;
+                    break;
+                case 'params':
+                    req.validatedParams = instance;
+                    break;
+            }
+
             return next();
         } catch (err) {
             console.error('Validation middleware error:', err);
