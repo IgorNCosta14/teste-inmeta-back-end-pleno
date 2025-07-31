@@ -42,5 +42,4 @@ export class DocumentTypeRepository implements IDocumentTypeRepository {
     async delete(id: string): Promise<void> {
         await this.documentTypeRepository.softDelete(id);
     }
-
 }

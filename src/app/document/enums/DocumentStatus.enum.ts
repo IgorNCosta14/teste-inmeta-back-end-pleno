@@ -1,4 +1,4 @@
 export enum DocumentStatus {
-    PENDING = 'pendente',
-    SENT = 'enviado',
+    PENDING = 'pending',
+    SENT = 'sent',
 }

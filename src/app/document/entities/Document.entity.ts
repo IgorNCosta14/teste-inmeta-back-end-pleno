@@ -5,7 +5,8 @@ import {
     ManyToOne,
     CreateDateColumn,
     UpdateDateColumn,
-    JoinColumn
+    JoinColumn,
+    DeleteDateColumn
 } from 'typeorm';
 import { DocumentType } from './DocumentType.entity';
 import { Employee } from '../../employee/entities/Employee.entity';
@@ -38,4 +39,7 @@ export class Document {
 
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
+
+    @DeleteDateColumn({ name: 'deleted_at', nullable: true })
+    deletedAt: Date;
 }
