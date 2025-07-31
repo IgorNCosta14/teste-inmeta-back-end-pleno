@@ -3,6 +3,8 @@ import { IEmployeeRepository } from "./IEmployeeRepository";
 import { AppDataSource } from "../../../config/typeOrm/dataSource";
 import { Employee } from "../entities/Employee.entity";
 import { CreateEmployeeDto } from "../dtos/CreateEmployee.dto";
+import { ListEmployeesFiltersDto } from "../dtos/ListEmployeesFilters.dto";
+import { ListEmployeesRespDto } from "../dtos/ListEmployeesResp.dto";
 
 export class EmployeeRepository implements IEmployeeRepository {
     private readonly employeeRepository: Repository<Employee>;
@@ -27,5 +29,23 @@ export class EmployeeRepository implements IEmployeeRepository {
                 id
             }
         })
+    }
+
+    async listEmployees({ page = 1, limit = 10, order = "ASC" }: ListEmployeesFiltersDto): Promise<ListEmployeesRespDto> {
+        const [data, total] = await this.employeeRepository.findAndCount({
+            skip: (page - 1) * limit,
+            take: limit,
+            order: {
+                name: order,
+            },
+        });
+
+        return {
+            data,
+            total,
+            page,
+            limit,
+            order
+        };
     }
 }
