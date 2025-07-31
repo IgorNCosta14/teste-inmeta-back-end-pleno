@@ -6,7 +6,7 @@ import { documentRouter } from './document.routes';
 const router = Router();
 
 router.use('/employees', employeesRouter);
-router.use('/document-type', documentTypeRouter);
-router.use('/document', documentRouter)
+router.use('/document-types', documentTypeRouter);
+router.use('/documents', documentRouter)
 
 export default router;
