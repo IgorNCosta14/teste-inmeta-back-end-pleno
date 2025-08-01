@@ -13,6 +13,5 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities: [DocumentType, Employee, Document],
-    migrations: ['src/config/typeOrm/migrations/*.ts'],
-    // migrations: [__dirname + '/src/config/typeOrm/migrations/**'],
+    migrations: ['src/config/typeOrm/migrations/*.ts']
 });
