@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { IEmployeeRepository } from "../repositories/IEmployeeRepository";
 import { ErrorHandler } from "../../../shared/errors/ErrorHandler";
-import { DocumentStatus } from "../../document/enums/DocumentStatus.enum";
+import { ListEmployeesDocumentsDto } from "../dtos/ListEmployeesDocuments.dto";
 
 @injectable()
 export class ListEmployeesDocumentsUseCase {
@@ -10,20 +10,7 @@ export class ListEmployeesDocumentsUseCase {
         private readonly employeeRepository: IEmployeeRepository
     ) { }
 
-    async execute(id: string): Promise<{
-        id: string;
-        name: string;
-        hiredAt: Date;
-        documents: {
-            id: string;
-            name: string;
-            status: DocumentStatus;
-            documentType: {
-                id: string;
-                name: string;
-            }
-        }[]
-    }> {
+    async execute(id: string): Promise<ListEmployeesDocumentsDto> {
         const employee = await this.employeeRepository.listEmployeesDocuments(id);
 
         if (!employee) {
