@@ -31,6 +31,17 @@ export class EmployeeRepository implements IEmployeeRepository {
         })
     }
 
+    async listEmployeesDocuments(id: string): Promise<Employee | null> {
+        const employee = await this.employeeRepository
+            .createQueryBuilder('employee')
+            .leftJoinAndSelect('employee.documents', 'document', 'document.deletedAt IS NULL').withDeleted()
+            .leftJoinAndSelect('document.documentType', 'documentType')
+            .where('employee.id = :id', { id })
+            .getOne();
+
+        return employee;
+    }
+
     async listEmployees({ page = 1, limit = 10, order = "ASC" }: ListEmployeesFiltersDto): Promise<ListEmployeesRespDto> {
         const [data, total] = await this.employeeRepository.findAndCount({
             skip: (page - 1) * limit,

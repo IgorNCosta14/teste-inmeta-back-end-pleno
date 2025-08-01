@@ -7,5 +7,6 @@ export interface IEmployeeRepository {
     create(date: CreateEmployeeDto): Promise<Employee>;
     update(employee: Employee): Promise<Employee>;
     getById(id: string): Promise<Employee | null>;
-    listEmployees({ page, limit, order }: ListEmployeesFiltersDto): Promise<ListEmployeesRespDto>
+    listEmployees({ page, limit, order }: ListEmployeesFiltersDto): Promise<ListEmployeesRespDto>;
+    listEmployeesDocuments(id: string): Promise<Employee | null>;
 }
