@@ -10,9 +10,9 @@ export class DeleteDocumentTypeUseCase {
     ) { }
 
     async execute(id: string): Promise<void> {
-        const document = await this.documentTypeRepository.getById(id)
+        const documentType = await this.documentTypeRepository.getById(id)
 
-        if (!document) throw new ErrorHandler("Document type not found", 404);
+        if (!documentType) throw new ErrorHandler("Document type not found", 404);
 
         await this.documentTypeRepository.delete(id);
     }
