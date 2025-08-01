@@ -6,6 +6,8 @@ import { Document } from "../entities/Document.entity";
 export interface IDocumentRepository {
     create(data: CreateDocumentDto): Promise<Document>;
     getByEmployeeId(employeeId: string): Promise<Document[]>;
-    delete(id: string): Promise<void>;
-    listPendingDocuments(filters: ListDocumentsFiltersDto): Promise<ListDocumentsRespDto>
+    delete(ids: string[]): Promise<void>;
+    listPendingDocuments(filters: ListDocumentsFiltersDto): Promise<ListDocumentsRespDto>;
+    getById(id: string): Promise<Document | null>;
+    update(data: Document): Promise<Document>;
 }

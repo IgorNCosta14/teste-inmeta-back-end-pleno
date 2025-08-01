@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { AppDataSource } from "../../../config/typeOrm/dataSource";
 import { IDocumentRepository } from "./IDocumentRepository";
 import { Document } from "../entities/Document.entity";
@@ -26,6 +26,14 @@ export class DocumentRepository implements IDocumentRepository {
         return await this.documentRepository.save(document);
     }
 
+    async getById(id: string): Promise<Document | null> {
+        return await this.documentRepository.findOne({
+            where: {
+                id
+            }
+        })
+    }
+
     async getByEmployeeId(employeeId: string): Promise<Document[]> {
         return await this.documentRepository.find({
             where: {
@@ -48,6 +56,7 @@ export class DocumentRepository implements IDocumentRepository {
         const query = this.documentRepository
             .createQueryBuilder('document')
             .leftJoinAndSelect('document.employee', 'employee')
+            .withDeleted()
             .leftJoinAndSelect('document.documentType', 'documentType')
             .where('document.status = :status', { status })
             .andWhere('document.deleted_at IS NULL');
@@ -75,7 +84,11 @@ export class DocumentRepository implements IDocumentRepository {
         };
     }
 
-    async delete(id: string): Promise<void> {
-        await this.documentRepository.softDelete(id);
+    async delete(ids: string[]): Promise<void> {
+        await this.documentRepository.softDelete({ id: In(ids) });
+    }
+
+    async update(data: Document): Promise<Document> {
+        return await this.documentRepository.save(data);
     }
 }

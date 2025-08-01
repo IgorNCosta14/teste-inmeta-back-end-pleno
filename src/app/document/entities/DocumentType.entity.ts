@@ -14,7 +14,7 @@ export class DocumentType {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ unique: true })
+    @Column()
     name: string;
 
     @CreateDateColumn({ name: 'created_at' })
