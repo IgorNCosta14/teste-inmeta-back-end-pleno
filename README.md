@@ -80,6 +80,8 @@ O relatório será gerado no diretório `./coverage/lcov-report/index.html` e po
 ## Estrutura do Projeto
 
 ```text
+├── .github
+│   └── workflows                # Workflows de CI/CD com GitHub Actions
 ├── src
 │   ├── app
 │   │   ├── document (documents + document types)
@@ -98,7 +100,10 @@ O relatório será gerado no diretório `./coverage/lcov-report/index.html` e po
 │   |
 │   ├── config
 │   │   └── typeOrm              # Configurações do TypeORM
-│   |
+|   |
+│   ├── docs
+│   │   └── swagger.yaml             # Documentação da API com Swagger/OpenAPI
+|   |
 │   ├── infra
 │   │   └── routes               # Rotas da aplicação
 │   |
@@ -107,10 +112,12 @@ O relatório será gerado no diretório `./coverage/lcov-report/index.html` e po
 │   │   ├── errors               # Classe e middlewares de tratamento de erros
 │   │   └── middlewares          # Middlewares customizados
 │   |
+|   ├── jest.setup.ts                # Configuração do Jest
 │   └── server.ts                # Ponto de entrada da aplicação
 │
-├── jest.setup.ts                # Configuração do Jest
+├── Dockerfile                   # Configuração da imagem Docker
 ├── docker-compose.yml           # Arquivo de definição dos serviços Docker
+├── jest.config.js                  # Configuração de testes com Jest
 ├── tsconfig.json                # Configuração do TypeScript
 ├── package.json                 # Dependências e scripts do projeto
 └── README.md                    # Documentação do projeto
