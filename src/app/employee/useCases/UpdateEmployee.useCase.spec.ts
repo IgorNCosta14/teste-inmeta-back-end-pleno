@@ -45,6 +45,56 @@ describe('UpdateEmployeeUseCase', () => {
         });
     });
 
+    it('should update only the name if hiredAt is not provided', async () => {
+        const date = new Date();
+
+        const existingEmployee = {
+            id: "valid-uuid",
+            name: "old-employee-name",
+            hiredAt: date,
+            createdAt: date,
+        } as Employee;
+
+        const input: UpdateEmployeeDto = {
+            id: existingEmployee.id,
+            name: "new-employee-name",
+        };
+
+        employeeRepository.getById.mockResolvedValue(existingEmployee);
+
+        await updateEmployeeUseCase.execute(input);
+
+        expect(employeeRepository.update).toHaveBeenCalledWith({
+            ...existingEmployee,
+            name: input.name
+        });
+    });
+
+    it('should update only the hiredAt if name is not provided', async () => {
+        const date = new Date();
+
+        const existingEmployee = {
+            id: "valid-uuid",
+            name: "employee-name",
+            hiredAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+            createdAt: date,
+        } as Employee;
+
+        const input: UpdateEmployeeDto = {
+            id: existingEmployee.id,
+            hiredAt: date
+        };
+
+        employeeRepository.getById.mockResolvedValue(existingEmployee);
+
+        await updateEmployeeUseCase.execute(input);
+
+        expect(employeeRepository.update).toHaveBeenCalledWith({
+            ...existingEmployee,
+            hiredAt: input.hiredAt
+        });
+    });
+
     it('should throw an error if the employee does not exist', async () => {
         const date = new Date();
 
