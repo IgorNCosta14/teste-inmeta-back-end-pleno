@@ -121,35 +121,118 @@ O relatório será gerado no diretório `./coverage/lcov-report/index.html` e po
 ### Employees
 `POST /employees`
 * **Descrição**: Cria um novo colaborador.
+* **Body**: 
+```json
+{
+    "name": "name",
+    "hiredAt": "2025-07-30"
+}
+```
 
 `GET /employees`
 * **Descrição**: Lista de todos os colaboradores.
+* **Query**: 
+```json
+{
+  "page": 1,
+  "limit": 100,
+  "order": "ASC | DESC"
+}
+```
   
 `GET /employees/:id`
 * **Descrição**: Lista os documentos enviados e pendentes de um colaborador específico.
+* **Params**: 
+```json
+{
+  "id": "9a5701be-cb3a-4663-9919-2c8f6dd58021"
+}
+```
   
 `PUT /employees/:id`
 * **Descrição**: Atualiza os dados de um colaborador existente.
+* **Params**: 
+```json
+{
+  "id": "9a5701be-cb3a-4663-9919-2c8f6dd58021"
+}
+```
   
 ### Document Types
 `POST /document-types`
 * **Descrição**: Cadastra um novo tipo de documento.
+* **Body**: 
+```json
+{
+    "name": "CNH"
+}
+```
 
 `GET /document-types`
 * **Descrição**: Retorna todos os tipos de documentos ativos.
 
 `DELETE /document-types/:id`
 * **Descrição**: Exclui um tipo de documento.
+* **Params**: 
+```json
+{
+  "id": "9a5701be-cb3a-4663-9919-2c8f6dd58021"
+}
+```
 
 ### Documents
 `POST /documents`
 * **Descrição**: Cria um ou mais documentos para um colaborador.
+* **Body**: 
+```json
+{
+    "documents": [
+        {
+            "name": "Document name",
+            "url": null,
+            "employeeId": "0ba97646-63ec-4476-8afd-8b734a1c2ebc",
+            "documentTypeId": "9a5701be-cb3a-4663-9919-2c8f6dd58021"
+        }
+    ]
+}
+```
+
+`POST /documents/remove`
+* **Descrição**: Deleta um ou mais documentos.
+* **Body**: 
+```json
+{
+    "ids": [ 
+        "171bff5e-33a3-4ca2-84bc-971a044c37ab"
+    ]
+}
+```
 
 `GET /documents`
 * **Descrição**: Lista todos os documentos.
-  
+* **Query**: 
+```json
+{
+  "employeeId": "171bff5e-33a3-4ca2-84bc-971a044c37ab",
+  "documentTypeId": "171bff5e-33a3-4ca2-84bc-971a044c37ab",
+  "status": "pending | sent",
+  "page": 1,
+  "limit": 100,
+  "order": "ASC | DESC"
+}
+```
+
 `PUT /documents/:id/send`
 * **Descrição**: Salvar url de um documento e marcá-lo enviado.
-  
-`DELETE /documents`
-* **Descrição**: Deleta um ou mais documentos.
+* **Body**: 
+```json
+{
+    "url": "url"
+}
+```
+* **Params**: 
+```json
+{
+  "id": "9a5701be-cb3a-4663-9919-2c8f6dd58021"
+}
+```
