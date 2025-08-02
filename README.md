@@ -101,7 +101,7 @@ O relatório será gerado no diretório `./coverage/lcov-report/index.html` e po
 │   |
 │   ├── infra
 │   │   └── routes               # Rotas da aplicação
-│
+│   |
 │   ├── shared
 │   │   ├── container            # Injeção de dependências com TSyringe
 │   │   ├── errors               # Classe e middlewares de tratamento de erros
