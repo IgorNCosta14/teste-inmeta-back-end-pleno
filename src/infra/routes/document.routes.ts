@@ -20,7 +20,7 @@ const sendDocumentController = new SendDocumentController();
 
 documentRouter.post('/', createValidationMiddleware(CreateMultipleDocumentsBodyDto), createDocumentController.handle);
 documentRouter.get('/', createValidationMiddleware(GetDocumentsQueryDto, 'query'), getDocumentsController.handle);
-documentRouter.delete('/',
+documentRouter.post('/remove',
     createValidationMiddleware(DeleteDocumentBodyDto, 'body'),
     deleteDocumentController.handle
 );

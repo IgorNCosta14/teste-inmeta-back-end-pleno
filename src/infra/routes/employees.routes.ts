@@ -7,6 +7,7 @@ import { UpdateEmployeeParamsDto } from "../../app/employee/dtos/UpdateEmployeeP
 import { ListEmployeesController } from "../../app/employee/controllers/ListEmployees.controller";
 import { ListEmployeesQueryDto } from "../../app/employee/dtos/ListEmployeesQuery.dto";
 import { ListEmployeesDocumentsController } from "../../app/employee/controllers/ListEmployeesDocuments.controller";
+import { ListEmployeesDocumentsParamsDto } from "../../app/employee/dtos/ListEmployeesDocumentsParams.dto";
 
 const employeesRouter = Router();
 
@@ -17,7 +18,13 @@ const listEmployeesController = new ListEmployeesController();
 
 employeesRouter.post('/', createValidationMiddleware(CreateEmployeeBodyDto), createEmployeeController.handle);
 employeesRouter.get('/', createValidationMiddleware(ListEmployeesQueryDto, 'query'), listEmployeesController.handle);
-employeesRouter.get('/:id', listEmployeesDocumentsController.handle);
-employeesRouter.put('/:id', createValidationMiddleware(UpdateEmployeeParamsDto, 'params'), updateEmployeeEmployeeController.handle);
+employeesRouter.get('/:id',
+    createValidationMiddleware(ListEmployeesDocumentsParamsDto, 'params'),
+    listEmployeesDocumentsController.handle
+);
+employeesRouter.put('/:id',
+    createValidationMiddleware(UpdateEmployeeParamsDto, 'params'),
+    updateEmployeeEmployeeController.handle
+);
 
 export { employeesRouter };
