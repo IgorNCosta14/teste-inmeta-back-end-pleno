@@ -95,18 +95,18 @@ O relatório será gerado no diretório `./coverage/lcov-report/index.html` e po
 │   │       ├── entities         # Entidades
 │   │       ├── repositories     # Repositórios
 │   │       └── useCases         # Casos de uso
-│
+│   |
 │   ├── config
 │   │   └── typeOrm              # Configurações do TypeORM
-│
+│   |
 │   ├── infra
 │   │   └── routes               # Rotas da aplicação
-│
+│   |
 │   ├── shared
 │   │   ├── container            # Injeção de dependências com TSyringe
 │   │   ├── errors               # Classe e middlewares de tratamento de erros
 │   │   └── middlewares          # Middlewares customizados
-│
+│   |
 │   └── server.ts                # Ponto de entrada da aplicação
 │
 ├── jest.setup.ts                # Configuração do Jest
