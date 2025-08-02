@@ -95,18 +95,18 @@ O relatório será gerado no diretório `./coverage/lcov-report/index.html` e po
 │   │       ├── entities         # Entidades
 │   │       ├── repositories     # Repositórios
 │   │       └── useCases         # Casos de uso
-│   |
+│
 │   ├── config
 │   │   └── typeOrm              # Configurações do TypeORM
-│   |
+│
 │   ├── infra
 │   │   └── routes               # Rotas da aplicação
-│   |
+│
 │   ├── shared
 │   │   ├── container            # Injeção de dependências com TSyringe
 │   │   ├── errors               # Classe e middlewares de tratamento de erros
 │   │   └── middlewares          # Middlewares customizados
-│   |
+│
 │   └── server.ts                # Ponto de entrada da aplicação
 │
 ├── jest.setup.ts                # Configuração do Jest
@@ -115,3 +115,41 @@ O relatório será gerado no diretório `./coverage/lcov-report/index.html` e po
 ├── package.json                 # Dependências e scripts do projeto
 └── README.md                    # Documentação do projeto
 ```
+
+## Endpoints
+
+### Employees
+`POST /employees`
+* **Descrição**: Cria um novo colaborador.
+
+`GET /employees`
+* **Descrição**: Lista de todos os colaboradores.
+  
+`GET /employees/:id`
+* **Descrição**: Lista os documentos enviados e pendentes de um colaborador específico.
+  
+`PUT /employees/:id`
+* **Descrição**: Atualiza os dados de um colaborador existente.
+  
+### Document Types
+`POST /document-types`
+* **Descrição**: Cadastra um novo tipo de documento.
+
+`GET /document-types`
+* **Descrição**: Retorna todos os tipos de documentos ativos.
+
+`DELETE /document-types/:id`
+* **Descrição**: Exclui um tipo de documento.
+
+### Documents
+`POST /documents`
+* **Descrição**: Cria um ou mais documentos para um colaborador.
+
+`GET /documents`
+* **Descrição**: Lista todos os documentos.
+  
+`PUT /documents/:id/send`
+* **Descrição**: Salvar url de um documento e marcá-lo enviado.
+  
+`DELETE /documents`
+* **Descrição**: Deleta um ou mais documentos.
