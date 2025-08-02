@@ -7,6 +7,6 @@ const router = Router();
 
 router.use('/employees', employeesRouter);
 router.use('/document-types', documentTypeRouter);
-router.use('/documents', documentRouter)
+router.use('/documents', documentRouter);
 
 export default router;
