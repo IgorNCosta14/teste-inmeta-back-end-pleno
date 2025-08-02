@@ -58,7 +58,6 @@ export function createValidationMiddleware<T extends object>(
 
             return next();
         } catch (err) {
-            console.error('Validation middleware error:', err);
             return res.status(500).json({
                 status: 500,
                 message: 'Internal Server Error',

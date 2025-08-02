@@ -1,6 +1,5 @@
 import { inject, injectable } from "tsyringe";
 import { IDocumentRepository } from "../repositories/IDocumentRepository";
-import { Document } from "../entities/Document.entity";
 import { ListDocumentsFiltersDto } from "../dtos/ListDocumentsFilters.dto";
 import { ListDocumentsRespDto } from "../dtos/ListDocumentsResp.dto";
 
@@ -12,8 +11,6 @@ export class GetDocumentsUseCase {
     ) { }
 
     async execute(filters: ListDocumentsFiltersDto): Promise<ListDocumentsRespDto> {
-        const documents = await this.documentRepository.listPendingDocuments(filters);
-
-        return documents;
+        return await this.documentRepository.listPendingDocuments(filters);
     }
 }

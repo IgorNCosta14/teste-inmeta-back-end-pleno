@@ -24,7 +24,7 @@ export class DocumentType {
     updatedAt: Date;
 
     @DeleteDateColumn({ name: 'deleted_at', nullable: true })
-    deletedAt: Date;
+    deletedAt: Date | null;
 
     @OneToMany(() => Document, (document) => document.documentType)
     documents: Document[];
