@@ -4,6 +4,20 @@ Este projeto é uma API RESTful desenvolvida em Node.js com TypeScript para gere
 
 A API facilita o controle do fluxo de documentação ao permitir que usuários verifiquem quais documentos foram enviados e quais ainda estão pendentes, com suporte a filtros e paginação.
 
+## 📚 Índice
+
+- [Tecnologias](#tecnologias)
+- [Instalação e Uso](#instalação-e-uso)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Passo a passo](#passo-a-passo)
+- [Testes](#testes)
+- [Documentação Swagger](#documentação-swagger)
+- [Endpoints](#endpoints)
+  - [Employees](#employees)
+  - [Document Types](#document-types)
+  - [Documents](#documents)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+
 ## Tecnologias
 
 Este projeto foi desenvolvido com as seguintes tecnologias:
@@ -77,43 +91,15 @@ npm run test:cov
 
 O relatório será gerado no diretório `./coverage/lcov-report/index.html` e pode ser aberto no navegador para visualização.
 
-## Estrutura do Projeto
 
-```text
-├── src
-│   ├── app
-│   │   ├── document (documents + document types)
-│   │   │   ├── controllers      # Controllers
-│   │   │   ├── dtos             # DTOs
-│   │   │   ├── entities         # Entidades
-│   │   │   ├── enums            # Enumerações
-│   │   │   ├── repositories     # Repositórios
-│   │   │   └── useCases         # Casos de uso
-│   │   └── employee
-│   │       ├── controllers      # Controllers
-│   │       ├── dtos             # DTOs
-│   │       ├── entities         # Entidades
-│   │       ├── repositories     # Repositórios
-│   │       └── useCases         # Casos de uso
-│   |
-│   ├── config
-│   │   └── typeOrm              # Configurações do TypeORM
-│   |
-│   ├── infra
-│   │   └── routes               # Rotas da aplicação
-│   |
-│   ├── shared
-│   │   ├── container            # Injeção de dependências com TSyringe
-│   │   ├── errors               # Classe e middlewares de tratamento de erros
-│   │   └── middlewares          # Middlewares customizados
-│   |
-│   └── server.ts                # Ponto de entrada da aplicação
-│
-├── jest.setup.ts                # Configuração do Jest
-├── docker-compose.yml           # Arquivo de definição dos serviços Docker
-├── tsconfig.json                # Configuração do TypeScript
-├── package.json                 # Dependências e scripts do projeto
-└── README.md                    # Documentação do projeto
+## Documentação Swagger
+
+A documentação interativa da API está disponível via Swagger UI.
+
+Acesse a documentação no seu navegador pelo seguinte endereço:
+
+```bash
+http://localhost:3000/api-docs
 ```
 
 ## Endpoints
@@ -235,4 +221,50 @@ O relatório será gerado no diretório `./coverage/lcov-report/index.html` e po
 {
   "id": "9a5701be-cb3a-4663-9919-2c8f6dd58021"
 }
+```
+
+## Estrutura do Projeto
+
+```text
+├── .github
+│   └── workflows                # Workflows de CI/CD com GitHub Actions
+├── src
+│   ├── app
+│   │   ├── document (documents + document types)
+│   │   │   ├── controllers      # Controllers
+│   │   │   ├── dtos             # DTOs
+│   │   │   ├── entities         # Entidades
+│   │   │   ├── enums            # Enumerações
+│   │   │   ├── repositories     # Repositórios
+│   │   │   └── useCases         # Casos de uso
+│   │   └── employee
+│   │       ├── controllers      # Controllers
+│   │       ├── dtos             # DTOs
+│   │       ├── entities         # Entidades
+│   │       ├── repositories     # Repositórios
+│   │       └── useCases         # Casos de uso
+│   |
+│   ├── config
+│   │   └── typeOrm              # Configurações do TypeORM
+|   |
+│   ├── docs
+│   │   └── swagger.yaml             # Documentação da API com Swagger/OpenAPI
+|   |
+│   ├── infra
+│   │   └── routes               # Rotas da aplicação
+│   |
+│   ├── shared
+│   │   ├── container            # Injeção de dependências com TSyringe
+│   │   ├── errors               # Classe e middlewares de tratamento de erros
+│   │   └── middlewares          # Middlewares customizados
+│   |
+|   ├── jest.setup.ts                # Configuração do Jest
+│   └── server.ts                # Ponto de entrada da aplicação
+│
+├── Dockerfile                   # Configuração da imagem Docker
+├── docker-compose.yml           # Arquivo de definição dos serviços Docker
+├── jest.config.js                  # Configuração de testes com Jest
+├── tsconfig.json                # Configuração do TypeScript
+├── package.json                 # Dependências e scripts do projeto
+└── README.md                    # Documentação do projeto
 ```

@@ -10,8 +10,8 @@ import { initializeDatabase } from './config/typeOrm';
 import routes from './infra/routes';
 
 import swaggerUi from 'swagger-ui-express';
-import YAML from 'yamljs';
 import path from 'path';
+import fs from 'fs';
 
 export const app = express();
 const port = process.env.PORT || 3000;;
@@ -22,7 +22,9 @@ app.use(express.json());
 
 app.use(routes);
 
-const swaggerDocument = YAML.load(path.join(__dirname, 'docs', 'swagger.yaml'));
+const swaggerPath = path.join(__dirname, 'docs', 'swagger.json');
+
+const swaggerDocument = JSON.parse(fs.readFileSync(swaggerPath, 'utf8'));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
