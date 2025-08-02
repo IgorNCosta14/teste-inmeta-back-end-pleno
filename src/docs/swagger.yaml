@@ -1,0 +1,1239 @@
+openapi: 3.0.0
+info:
+  title: Colaboradores API
+  version: 1.0.0
+  description: API para gerenciamento de colaboradores e documentação obrigatória.
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /employees:
+    post:
+      summary: Cria um novo colaborador
+      tags: [Employees]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - hiredAt
+              properties:
+                name:
+                  type: string
+                  description: Nome do colaborador
+                  example: João Silva
+                hiredAt:
+                  type: string
+                  format: date
+                  pattern: '^\d{4}-\d{2}-\d{2}$'
+                  description: Data de contratação no formato YYYY-MM-DD
+                  example: '2025-07-30'
+      responses:
+        '201':
+          description: Colaborador criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 201
+                  message:
+                    type: string
+                    example: Employee created successfully
+                  data:
+                    type: object
+                    properties:
+                      employee:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            example: 123e4567-e89b-12d3-a456-426614174000
+                          name:
+                            type: string
+                            example: João Silva
+                          hiredAt:
+                            type: string
+                            format: date
+                            example: '2025-07-30'
+                          createdAt:
+                            type: string
+                            format: date-time
+                            example: '2025-07-30T12:34:56.789Z'
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            example: '2025-07-30T12:34:56.789Z'
+        '400':
+          description: Erro de validação dos dados de entrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: hiredAt
+                        constraints:
+                          type: object
+                          additionalProperties:
+                            type: string
+                          example:
+                            matches: hiredAt must be in format YYYY-MM-DD
+              examples:
+                multipleFieldsInvalid:
+                  summary: Vários campos com erros
+                  value:
+                    status: 400
+                    message: Validation failed
+                    errors:
+                      - field: name
+                        constraints:
+                          isString: name must be a string
+                          isNotEmpty: name should not be empty
+                      - field: hiredAt
+                        constraints:
+                          matches: hiredAt must be in format YYYY-MM-DD
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  message:
+                    type: string
+                    example: Internal server error - Something went wrong
+
+    get:
+        summary: Lista todos os colaboradores
+        tags: [Employees]
+        parameters:
+          - in: query
+            name: page
+            schema:
+              type: integer
+              minimum: 1
+            description: Página atual para paginação (mínimo 1)
+            example: 1
+          - in: query
+            name: limit
+            schema:
+              type: integer
+              minimum: 1
+              maximum: 100
+            description: Número de itens por página (entre 1 e 100)
+            example: 10
+          - in: query
+            name: order
+            schema:
+              type: string
+              enum: [ASC, DESC]
+            description: Ordenação dos resultados (ASC ou DESC)
+            example: ASC
+        responses:
+          '200':
+            description: Lista de colaboradores retornada com sucesso
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 200
+                    message:
+                      type: string
+                      example: Employees fetched successfully
+                    data:
+                      type: object
+                      properties:
+                        employees:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    format: uuid
+                                    example: 13fb3870-89a1-4c41-ac97-2698dfeb9fea
+                                  name:
+                                    type: string
+                                    example: igor 7
+                                  hiredAt:
+                                    type: string
+                                    format: date-time
+                                    example: "2025-07-30T03:00:00.000Z"
+                                  createdAt:
+                                    type: string
+                                    format: date-time
+                                    example: "2025-08-02T09:22:03.225Z"
+                                  updatedAt:
+                                    type: string
+                                    format: date-time
+                                    example: "2025-08-02T09:22:03.225Z"
+                            total:
+                              type: integer
+                              example: 1
+                            page:
+                              type: integer
+                              example: 1
+                            limit:
+                              type: integer
+                              example: 10
+                            order:
+                              type: string
+                              enum: [ASC, DESC]
+                              example: ASC
+          '400':
+            description: Erro de validação nos parâmetros da query
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 400
+                    message:
+                      type: string
+                      example: Validation failed
+                    errors:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field:
+                            type: string
+                            example: limit
+                          constraints:
+                            type: object
+                            additionalProperties:
+                              type: string
+                            example:
+                              max: limit must not be greater than 100
+                              min: limit must not be less than 1
+                              isInt: limit must be an integer number
+                examples:
+                  multipleQueryParamsInvalid:
+                    summary: Vários parâmetros da query inválidos
+                    value:
+                      status: 400
+                      message: Validation failed
+                      errors:
+                        - field: page
+                          constraints:
+                            min: page must not be less than 1
+                            isInt: page must be an integer number
+                        - field: limit
+                          constraints:
+                            max: limit must not be greater than 100
+                            min: limit must not be less than 1
+                            isInt: limit must be an integer number
+                        - field: order
+                          constraints:
+                            isIn: order must be either 'ASC' or 'DESC'
+          '500':
+            description: Erro interno no servidor
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 500
+                    message:
+                      type: string
+                      example: Internal server error - Something went wrong
+
+  /employees/{id}:
+    get:
+      summary: Lista os documentos de um colaborador específico
+      tags: [Employees]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: UUID do colaborador
+      responses:
+        '200':
+          description: Lista de documentos do colaborador
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Employees fetched successfully
+                  data:
+                    type: object
+                    properties:
+                      employee:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          name:
+                            type: string
+                          hiredAt:
+                            type: string
+                            format: date-time
+                          documents:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  format: uuid
+                                name:
+                                  type: string
+                                status:
+                                  type: string
+                                  enum: [pending, sent]
+                                documentType:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: string
+                                      format: uuid
+                                    name:
+                                      type: string
+        '400':
+          description: Erro de validação nos parâmetros da rota
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: id
+                        constraints:
+                          type: object
+                          additionalProperties:
+                            type: string
+                          example:
+                            isUuid: The "id" parameter in the route params must be a valid UUID
+        '404':
+          description: Colaborador não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Employee not found!
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  message:
+                    type: string
+                    example: Internal server error - Something went wrong
+                  stack:
+                    type: string
+
+    put:
+        summary: Atualiza um colaborador existente
+        tags: [Employees]
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              format: uuid
+            description: UUID do colaborador
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  hiredAt:
+                    type: string
+                    format: date
+        responses:
+          '200':
+            description: Colaborador atualizado com sucesso
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 200
+                    message:
+                      type: string
+                      example: Employee updated successfully
+                    data:
+                      type: object
+                      properties:
+                        employee:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+                            hiredAt:
+                              type: string
+                              format: date-time
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+          '400':
+            description: Erro de validação nos parâmetros ou corpo da requisição
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 400
+                    message:
+                      type: string
+                      example: Validation failed
+                    errors:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field:
+                            type: string
+                            example: hiredAt
+                          constraints:
+                            type: object
+                            additionalProperties:
+                              type: string
+                            example:
+                              matches: hiredAt must be in format YYYY-MM-DD
+          '404':
+            description: Colaborador não encontrado
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 404
+                    message:
+                      type: string
+                      example: Employee not found!
+          '500':
+            description: Erro interno no servidor
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 500
+                    message:
+                      type: string
+                      example: Internal server error - Something went wrong
+                    stack:
+                      type: string
+  
+  /document-types:
+    post:
+      summary: Cadastra um novo tipo de documento
+      tags: [Document types]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: CNH
+      responses:
+        '201':
+          description: Tipo de documento criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 201
+                  message:
+                    type: string
+                    example: Document type created successfully
+                  data:
+                    type: object
+                    properties:
+                      documentType:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          name:
+                            type: string
+                            example: CNH 2
+                          createdAt:
+                            type: string
+                            format: date-time
+                          updatedAt:
+                            type: string
+                            format: date-time
+                          deletedAt:
+                            type: string
+                            format: date-time
+                            nullable: true
+        '400':
+          description: Erro de validação do corpo da requisição
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: name
+                        constraints:
+                          type: object
+                          additionalProperties:
+                            type: string
+                          example:
+                            isString: name must be a string
+                            isNotEmpty: name should not be empty
+        '422':
+          description: Nome do tipo de documento já está em uso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 422
+                  message:
+                    type: string
+                    example: Name is already in use
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  message:
+                    type: string
+                    example: Internal server error - Something went wrong
+
+    get:
+      summary: Retorna todos os tipos de documentos ativos
+      tags: [Document types]
+      responses:
+        '200':
+          description: Lista de tipos de documentos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Document types fetched successfully
+                  data:
+                    type: object
+                    properties:
+                      documentTypes:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                              example: 9a5701be-cb3a-4663-9919-2c8f6dd58021
+                            name:
+                              type: string
+                              example: CNH
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+                            deletedAt:
+                              type: string
+                              format: date-time
+                              nullable: true
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  message:
+                    type: string
+                    example: Internal server error - Something went wrong
+                      
+  /document-types/{id}:
+    delete:
+      summary: Exclui um tipo de documento
+      tags: [Document types]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID do tipo de documento a ser deletado
+      responses:
+        '200':
+          description: Tipo de documento deletado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Document type delete successfully
+        '400':
+          description: Erro de validação no parâmetro da rota
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: id
+                        constraints:
+                          type: object
+                          additionalProperties:
+                            type: string
+                          example:
+                            isUuid: The "id" parameter in the route params must be a valid UUID
+        '404':
+          description: Tipo de documento não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Document type not found
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  message:
+                    type: string
+                    example: Internal server error - Something went wrong
+
+  /documents:
+    post:
+        summary: Cria um ou mais documentos
+        tags: [Documents]
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documents:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        url:
+                          type: string
+                          nullable: true
+                        employeeId:
+                          type: string
+                          format: uuid
+                        documentTypeId:
+                          type: string
+                          format: uuid
+        responses:
+          '201':
+            description: Documentos criados com sucesso
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 201
+                    message:
+                      type: string
+                      example: Document created successfully
+                    data:
+                      type: object
+                      properties:
+                        documents:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                format: uuid
+                              name:
+                                type: string
+                              status:
+                                type: string
+                                example: pending
+                              employee:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    format: uuid
+                              documentType:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    format: uuid
+                              createdAt:
+                                type: string
+                                format: date-time
+                              updatedAt:
+                                type: string
+                                format: date-time
+          '400':
+            description: Erro de validação ou entidade relacionada não encontrada
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - type: object
+                      properties:
+                        status:
+                          type: integer
+                          example: 400
+                        message:
+                          type: string
+                          example: Validation failed
+                        errors:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              field:
+                                type: string
+                                example: documents.0.name
+                              constraints:
+                                type: object
+                                additionalProperties:
+                                  type: string
+                                example:
+                                  isString: name must be a string
+                                  isNotEmpty: name should not be empty
+                    - type: object
+                      properties:
+                        status:
+                          type: integer
+                          example: 400
+                        message:
+                          type: string
+                          example: Some of the data is wrong
+                        errors:
+                          type: object
+                          properties:
+                            errors:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  index:
+                                    type: integer
+                                    example: 0
+                                  reason:
+                                    type: string
+                                    example: Employee 13fb3870-89a1-4c41-ac97-2698dfeb9feb not found
+          '500':
+            description: Erro interno no servidor
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 500
+                    message:
+                      type: string
+                      example: Internal server error - Something went wrong
+
+    get:
+        summary: Lista todos os documentos com filtros
+        tags: [Documents]
+        parameters:
+          - in: query
+            name: employeeId
+            schema:
+              type: string
+            description: ID do colaborador
+          - in: query
+            name: documentTypeId
+            schema:
+              type: string
+            description: ID do tipo de documento
+          - in: query
+            name: status
+            schema:
+              type: string
+              enum: [pending, sent]
+            description: Status do documento
+          - in: query
+            name: page
+            schema:
+              type: integer
+              minimum: 1
+            description: Número da página para paginação
+          - in: query
+            name: limit
+            schema:
+              type: integer
+              minimum: 1
+              maximum: 100
+            description: Número máximo de itens por página
+          - in: query
+            name: order
+            schema:
+              type: string
+              enum: [ASC, DESC]
+            description: Ordem de ordenação
+        responses:
+          '200':
+            description: Lista de documentos
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 200
+                    message:
+                      type: string
+                      example: Documents fetched successfully
+                    data:
+                      type: object
+                      properties:
+                        documents:
+                          type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    format: uuid
+                                  name:
+                                    type: string
+                                  url:
+                                    type: string
+                                    nullable: true
+                                  status:
+                                    type: string
+                                    enum: [pending, sent]
+                                  createdAt:
+                                    type: string
+                                    format: date-time
+                                  updatedAt:
+                                    type: string
+                                    format: date-time
+                                  deletedAt:
+                                    type: string
+                                    format: date-time
+                                    nullable: true
+                                  employee:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                        format: uuid
+                                      name:
+                                        type: string
+                                      hiredAt:
+                                        type: string
+                                        format: date-time
+                                      createdAt:
+                                        type: string
+                                        format: date-time
+                                      updatedAt:
+                                        type: string
+                                        format: date-time
+                                  documentType:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                        format: uuid
+                                      name:
+                                        type: string
+                                      createdAt:
+                                        type: string
+                                        format: date-time
+                                      updatedAt:
+                                        type: string
+                                        format: date-time
+                                      deletedAt:
+                                        type: string
+                                        format: date-time
+                                        nullable: true
+                            total:
+                              type: integer
+                              example: 2
+                            page:
+                              type: integer
+                              example: 1
+                            limit:
+                              type: integer
+                              example: 10
+                            order:
+                              type: string
+                              example: ASC
+          '500':
+            description: Erro interno no servidor
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 500
+                    message:
+                      type: string
+                      example: Internal server error - Something went wrong
+
+  /documents/remove:
+    post:
+      summary: Deleta um ou mais documentos
+      tags: [Documents]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: string
+              required:
+                - ids
+      responses:
+        '200':
+          description: Documentos removidos com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Document delete successfully
+        '400':
+          description: Erro de validação dos dados de entrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                          example: ids
+                        constraints:
+                          type: object
+                          additionalProperties:
+                            type: string
+                          example:
+                            isUuid: each value in ids must be a UUID
+                            arrayNotEmpty: ids should not be empty
+        '404':
+          description: Documentos não encontrados
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Documents not found
+                  errors:
+                    type: object
+                    properties:
+                      idsNotFound:
+                        type: array
+                        items:
+                          type: string
+                        example:
+                          - 171bff5e-33a3-4ca2-84bc-971a044c37ab
+        '500':
+          description: Erro interno no servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  message:
+                    type: string
+                    example: Internal server error - Something went wrong
+
+  /documents/{id}/send:
+    put:
+        summary: Marca o documento como enviado e adiciona URL
+        tags: [Documents]
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: string
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                required:
+                  - url
+        responses:
+          '200':
+            description: Documento enviado com sucesso
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 200
+                    message:
+                      type: string
+                      example: Document sent successfully
+                    data:
+                      type: object
+                      properties:
+                        document:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+                            url:
+                              type: string
+                            status:
+                              type: string
+                              enum: [sent]
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+                            deletedAt:
+                              type: string
+                              nullable: true
+          '400':
+            description: Erro de validação nos parâmetros ou corpo
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 400
+                    message:
+                      type: string
+                      example: Validation failed
+                    errors:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          field:
+                            type: string
+                          constraints:
+                            type: object
+                            additionalProperties:
+                              type: string
+                        example:
+                          field: url
+                          constraints:
+                            isString: url must be a string
+                            isNotEmpty: url should not be empty
+          '404':
+            description: Documento não encontrado
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 404
+                    message:
+                      type: string
+                      example: Document not found
+          '500':
+            description: Erro interno no servidor
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: integer
+                      example: 500
+                    message:
+                      type: string
+                      example: Internal server error - Something went wrong
