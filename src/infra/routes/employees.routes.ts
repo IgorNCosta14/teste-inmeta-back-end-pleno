@@ -8,6 +8,7 @@ import { ListEmployeesController } from "../../app/employee/controllers/ListEmpl
 import { ListEmployeesQueryDto } from "../../app/employee/dtos/ListEmployeesQuery.dto";
 import { ListEmployeesDocumentsController } from "../../app/employee/controllers/ListEmployeesDocuments.controller";
 import { ListEmployeesDocumentsParamsDto } from "../../app/employee/dtos/ListEmployeesDocumentsParams.dto";
+import { UpdateEmployeeBodyDto } from "../../app/employee/dtos/UpdateEmployeeBody.dto";
 
 const employeesRouter = Router();
 
@@ -24,6 +25,7 @@ employeesRouter.get('/:id',
 );
 employeesRouter.put('/:id',
     createValidationMiddleware(UpdateEmployeeParamsDto, 'params'),
+    createValidationMiddleware(UpdateEmployeeBodyDto),
     updateEmployeeEmployeeController.handle
 );
 
