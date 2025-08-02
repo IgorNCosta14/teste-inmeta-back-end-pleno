@@ -4,6 +4,20 @@ Este projeto é uma API RESTful desenvolvida em Node.js com TypeScript para gere
 
 A API facilita o controle do fluxo de documentação ao permitir que usuários verifiquem quais documentos foram enviados e quais ainda estão pendentes, com suporte a filtros e paginação.
 
+## 📚 Índice
+
+- [Tecnologias](#tecnologias)
+- [Instalação e Uso](#instalação-e-uso)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Passo a passo](#passo-a-passo)
+- [Testes](#testes)
+- [Documentação Swagger](#documentação-swagger)
+- [Endpoints](#endpoints)
+  - [Employees](#employees)
+  - [Document Types](#document-types)
+  - [Documents](#documents)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+
 ## Tecnologias
 
 Este projeto foi desenvolvido com as seguintes tecnologias:
@@ -81,12 +95,6 @@ O relatório será gerado no diretório `./coverage/lcov-report/index.html` e po
 ## Documentação Swagger
 
 A documentação interativa da API está disponível via Swagger UI.
-
-Após iniciar os containers com Docker Compose (Caso já não tenha feito):
-
-```bash
-docker-compose up --build -d
-```
 
 Acesse a documentação no seu navegador pelo seguinte endereço:
 
