@@ -77,50 +77,21 @@ npm run test:cov
 
 O relatório será gerado no diretório `./coverage/lcov-report/index.html` e pode ser aberto no navegador para visualização.
 
-## Estrutura do Projeto
 
-```text
-├── .github
-│   └── workflows                # Workflows de CI/CD com GitHub Actions
-├── src
-│   ├── app
-│   │   ├── document (documents + document types)
-│   │   │   ├── controllers      # Controllers
-│   │   │   ├── dtos             # DTOs
-│   │   │   ├── entities         # Entidades
-│   │   │   ├── enums            # Enumerações
-│   │   │   ├── repositories     # Repositórios
-│   │   │   └── useCases         # Casos de uso
-│   │   └── employee
-│   │       ├── controllers      # Controllers
-│   │       ├── dtos             # DTOs
-│   │       ├── entities         # Entidades
-│   │       ├── repositories     # Repositórios
-│   │       └── useCases         # Casos de uso
-│   |
-│   ├── config
-│   │   └── typeOrm              # Configurações do TypeORM
-|   |
-│   ├── docs
-│   │   └── swagger.yaml             # Documentação da API com Swagger/OpenAPI
-|   |
-│   ├── infra
-│   │   └── routes               # Rotas da aplicação
-│   |
-│   ├── shared
-│   │   ├── container            # Injeção de dependências com TSyringe
-│   │   ├── errors               # Classe e middlewares de tratamento de erros
-│   │   └── middlewares          # Middlewares customizados
-│   |
-|   ├── jest.setup.ts                # Configuração do Jest
-│   └── server.ts                # Ponto de entrada da aplicação
-│
-├── Dockerfile                   # Configuração da imagem Docker
-├── docker-compose.yml           # Arquivo de definição dos serviços Docker
-├── jest.config.js                  # Configuração de testes com Jest
-├── tsconfig.json                # Configuração do TypeScript
-├── package.json                 # Dependências e scripts do projeto
-└── README.md                    # Documentação do projeto
+## Documentação Swagger
+
+A documentação interativa da API está disponível via Swagger UI.
+
+Após iniciar os containers com Docker Compose (Caso já não tenha feito):
+
+```bash
+docker-compose up --build -d
+```
+
+Acesse a documentação no seu navegador pelo seguinte endereço:
+
+```bash
+http://localhost:3000/api-docs
 ```
 
 ## Endpoints
@@ -242,4 +213,50 @@ O relatório será gerado no diretório `./coverage/lcov-report/index.html` e po
 {
   "id": "9a5701be-cb3a-4663-9919-2c8f6dd58021"
 }
+```
+
+## Estrutura do Projeto
+
+```text
+├── .github
+│   └── workflows                # Workflows de CI/CD com GitHub Actions
+├── src
+│   ├── app
+│   │   ├── document (documents + document types)
+│   │   │   ├── controllers      # Controllers
+│   │   │   ├── dtos             # DTOs
+│   │   │   ├── entities         # Entidades
+│   │   │   ├── enums            # Enumerações
+│   │   │   ├── repositories     # Repositórios
+│   │   │   └── useCases         # Casos de uso
+│   │   └── employee
+│   │       ├── controllers      # Controllers
+│   │       ├── dtos             # DTOs
+│   │       ├── entities         # Entidades
+│   │       ├── repositories     # Repositórios
+│   │       └── useCases         # Casos de uso
+│   |
+│   ├── config
+│   │   └── typeOrm              # Configurações do TypeORM
+|   |
+│   ├── docs
+│   │   └── swagger.yaml             # Documentação da API com Swagger/OpenAPI
+|   |
+│   ├── infra
+│   │   └── routes               # Rotas da aplicação
+│   |
+│   ├── shared
+│   │   ├── container            # Injeção de dependências com TSyringe
+│   │   ├── errors               # Classe e middlewares de tratamento de erros
+│   │   └── middlewares          # Middlewares customizados
+│   |
+|   ├── jest.setup.ts                # Configuração do Jest
+│   └── server.ts                # Ponto de entrada da aplicação
+│
+├── Dockerfile                   # Configuração da imagem Docker
+├── docker-compose.yml           # Arquivo de definição dos serviços Docker
+├── jest.config.js                  # Configuração de testes com Jest
+├── tsconfig.json                # Configuração do TypeScript
+├── package.json                 # Dependências e scripts do projeto
+└── README.md                    # Documentação do projeto
 ```
