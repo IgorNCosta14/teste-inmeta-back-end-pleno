@@ -21,13 +21,13 @@ const sendDocumentController = new SendDocumentController();
 documentRouter.post('/', createValidationMiddleware(CreateMultipleDocumentsBodyDto), createDocumentController.handle);
 documentRouter.get('/', createValidationMiddleware(GetDocumentsQueryDto, 'query'), getDocumentsController.handle);
 documentRouter.post('/remove',
-    createValidationMiddleware(DeleteDocumentBodyDto, 'body'),
+    createValidationMiddleware(DeleteDocumentBodyDto),
     deleteDocumentController.handle
 );
 documentRouter.put('/:id/send',
     createValidationMiddleware(SendDocumentParamsDto, 'params'),
-    createValidationMiddleware(SendDocumentBodyDto, 'body'),
+    createValidationMiddleware(SendDocumentBodyDto),
     sendDocumentController.handle
-)
+);
 
 export { documentRouter };
