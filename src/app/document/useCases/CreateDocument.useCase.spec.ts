@@ -154,7 +154,7 @@ describe('CreateDocumentUseCase', () => {
         await expect(createDocumentUseCase.execute(input)).rejects.toMatchObject(
             new ErrorHandler("Some of the data is wrong", 400, {
                 errors: [
-                    { index: 0, reason: "Employee invalid-employee-id not found" },
+                    { index: 1, reason: "Employee invalid-employee-id not found" },
                     { index: 0, reason: "DocumentType invalid-document-type-id not found" }
                 ]
             })
