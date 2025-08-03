@@ -69,21 +69,33 @@ http://localhost:3000
 
 ## Testes
 
-Este projeto possui testes unitários implementados com [Jest](https://jestjs.io/).
+Este projeto possui testes unitários e de integração implementados com [Jest](https://jestjs.io/).
 
 1. **Instale as dependências (caso ainda não tenha feito)**
 
 ```bash
 npm install
 ```
+2. **Preparar ambiente de testes**
+Para executar qualquer teste, é necessário que os containers do banco de dados estejam ativos e funcionando.
 
-2. **Executar todos os testes**
+```bash
+docker-compose up --build -d
+```
+
+3. **Executar todos os testes**
 
 ```bash
 npm test
 ```
 
-3. Gerar relatório de cobertura de testes
+4. Executar todos os testes (unitários + integração)
+
+```bash
+npm run test:all
+```
+
+5. Gerar relatório de cobertura de testes
 
 ```bash
 npm run test:cov
@@ -248,7 +260,7 @@ http://localhost:3000/api-docs
 │   │   └── typeOrm              # Configurações do TypeORM
 |   |
 │   ├── docs
-│   │   └── swagger.yaml             # Documentação da API com Swagger/OpenAPI
+│   │   └── swagger.yaml         # Documentação da API com Swagger/OpenAPI
 |   |
 │   ├── infra
 │   │   └── routes               # Rotas da aplicação
@@ -257,13 +269,24 @@ http://localhost:3000/api-docs
 │   │   ├── container            # Injeção de dependências com TSyringe
 │   │   ├── errors               # Classe e middlewares de tratamento de erros
 │   │   └── middlewares          # Middlewares customizados
-│   |
-|   ├── jest.setup.ts                # Configuração do Jest
+|   |
+|   ├── tests
+│   │   ├── integration          # Testes de integração
+│   │   │   ├── documentTypes
+│   │   │   ├── documents
+│   │   │   └── employees
+|   |   |
+│   │   └── unit                 # Testes unitários 
+│   │       ├── documentTypes
+│   │       ├── documents
+│   │       └── employees
+|   |
+|   ├── jest.setup.ts            # Configuração do Jest
 │   └── server.ts                # Ponto de entrada da aplicação
 │
 ├── Dockerfile                   # Configuração da imagem Docker
 ├── docker-compose.yml           # Arquivo de definição dos serviços Docker
-├── jest.config.js                  # Configuração de testes com Jest
+├── jest.config.js               # Configuração de testes com Jest
 ├── tsconfig.json                # Configuração do TypeScript
 ├── package.json                 # Dependências e scripts do projeto
 └── README.md                    # Documentação do projeto
