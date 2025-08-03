@@ -9,10 +9,7 @@ export const AppDataSource = new DataSource({
     port: Number(process.env.DB_PORT) || 5432,
     username: process.env.DB_USERNAME || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
-    database:
-        process.env.NODE_ENV === 'test'
-            ? process.env.TEST_DB_NAME || 'test_db'
-            : process.env.DB_NAME || 'postgres',
+    database: process.env.DB_NAME || 'postgres',
     synchronize: true,
     logging: false,
     entities: [DocumentType, Employee, Document],
