@@ -1,13 +1,13 @@
 import { ErrorHandler } from "../../../shared/errors/ErrorHandler";
-import { Employee } from "../../employee/entities/Employee.entity";
-import { IEmployeeRepository } from "../../employee/repositories/IEmployeeRepository";
-import { CreateDocumentUseCaseDto } from "../dtos/CreateDocumentUseCase.dto";
-import { Document } from "../entities/Document.entity";
-import { DocumentType } from "../entities/DocumentType.entity";
-import { DocumentStatus } from "../enums/DocumentStatus.enum";
-import { IDocumentRepository } from "../repositories/IDocumentRepository";
-import { IDocumentTypeRepository } from "../repositories/IDocumentTypeRepository";
-import { CreateDocumentUseCase } from "./CreateDocument.useCase";
+import { Employee } from "../../../app/employee/entities/Employee.entity";
+import { IEmployeeRepository } from "../../../app/employee/repositories/IEmployeeRepository";
+import { CreateDocumentUseCaseDto } from "../../../app/document/dtos/CreateDocumentUseCase.dto";
+import { Document } from "../../../app/document/entities/Document.entity";
+import { DocumentType } from "../../../app/document/entities/DocumentType.entity";
+import { DocumentStatus } from "../../../app/document/enums/DocumentStatus.enum";
+import { IDocumentRepository } from "../../../app/document/repositories/IDocumentRepository";
+import { IDocumentTypeRepository } from "../../../app/document/repositories/IDocumentTypeRepository";
+import { CreateDocumentUseCase } from "../../../app/document/useCases/CreateDocument.useCase";
 
 describe('CreateDocumentUseCase', () => {
     let createDocumentUseCase: CreateDocumentUseCase;

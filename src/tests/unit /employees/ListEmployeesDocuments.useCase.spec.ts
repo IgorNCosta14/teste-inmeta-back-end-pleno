@@ -1,10 +1,10 @@
 import { ErrorHandler } from "../../../shared/errors/ErrorHandler";
-import { Document } from "../../document/entities/Document.entity";
-import { DocumentType } from "../../document/entities/DocumentType.entity";
-import { DocumentStatus } from "../../document/enums/DocumentStatus.enum";
-import { Employee } from "../entities/Employee.entity";
-import { IEmployeeRepository } from "../repositories/IEmployeeRepository";
-import { ListEmployeesDocumentsUseCase } from "./ListEmployeesDocuments.useCase";
+import { Document } from "../../../app/document/entities/Document.entity";
+import { DocumentType } from "../../../app/document/entities/DocumentType.entity";
+import { DocumentStatus } from "../../../app/document/enums/DocumentStatus.enum";
+import { Employee } from "../../../app/employee/entities/Employee.entity";
+import { IEmployeeRepository } from "../../../app/employee/repositories/IEmployeeRepository";
+import { ListEmployeesDocumentsUseCase } from "../../../app/employee/useCases/ListEmployeesDocuments.useCase";
 
 describe('ListEmployeesDocumentsUseCase', () => {
     let listEmployeesDocumentsUseCase: ListEmployeesDocumentsUseCase;

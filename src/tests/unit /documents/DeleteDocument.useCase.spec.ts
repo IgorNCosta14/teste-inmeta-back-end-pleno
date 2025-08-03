@@ -1,7 +1,7 @@
-import { Document } from "../entities/Document.entity";
-import { IDocumentRepository } from "../repositories/IDocumentRepository";
-import { IDocumentTypeRepository } from "../repositories/IDocumentTypeRepository";
-import { DeleteDocumentUseCase } from "./DeleteDocument.useCase";
+import { Document } from "../../../app/document/entities/Document.entity";
+import { IDocumentRepository } from "../../../app/document/repositories/IDocumentRepository";
+import { IDocumentTypeRepository } from "../../../app/document/repositories/IDocumentTypeRepository";
+import { DeleteDocumentUseCase } from "../../../app/document/useCases/DeleteDocument.useCase";
 
 describe('DeleteDocumentUseCase', () => {
     let deleteDocumentUseCase: DeleteDocumentUseCase;
