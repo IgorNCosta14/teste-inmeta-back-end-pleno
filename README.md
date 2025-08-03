@@ -69,33 +69,21 @@ http://localhost:3000
 
 ## Testes
 
-Este projeto possui testes unitários e de integração implementados com [Jest](https://jestjs.io/).
+Este projeto possui testes unitários implementados com [Jest](https://jestjs.io/).
 
 1. **Instale as dependências (caso ainda não tenha feito)**
 
 ```bash
 npm install
 ```
-2. **Preparar ambiente de testes**
-Para executar qualquer teste, é necessário que os containers do banco de dados estejam ativos e funcionando.
 
-```bash
-docker-compose up --build -d
-```
-
-3. **Executar todos os testes**
+2. **Executar os testes**
 
 ```bash
 npm test
 ```
 
-4. Executar todos os testes (unitários + integração)
-
-```bash
-npm run test:all
-```
-
-5. Gerar relatório de cobertura de testes
+3. Gerar relatório de cobertura de testes
 
 ```bash
 npm run test:cov
@@ -271,10 +259,6 @@ http://localhost:3000/api-docs
 │   │   └── middlewares          # Middlewares customizados
 |   |
 |   ├── tests
-│   │   ├── integration          # Testes de integração
-│   │   │   ├── documentTypes
-│   │   │   ├── documents
-│   │   │   └── employees
 |   |   |
 │   │   └── unit                 # Testes unitários 
 │   │       ├── documentTypes
