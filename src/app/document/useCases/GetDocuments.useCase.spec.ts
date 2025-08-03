@@ -1,11 +1,11 @@
-import { Employee } from "../../../app/employee/entities/Employee.entity";
-import { ListDocumentsFiltersDto } from "../../../app/document/dtos/ListDocumentsFilters.dto";
-import { ListDocumentsRespDto } from "../../../app/document/dtos/ListDocumentsResp.dto";
-import { Document } from "../../../app/document/entities/Document.entity";
-import { DocumentType } from "../../../app/document/entities/DocumentType.entity";
-import { DocumentStatus } from "../../../app/document/enums/DocumentStatus.enum";
-import { IDocumentRepository } from "../../../app/document/repositories/IDocumentRepository";
-import { GetDocumentsUseCase } from "../../../app/document/useCases/GetDocuments.useCase";
+import { Employee } from "../../employee/entities/Employee.entity";
+import { ListDocumentsFiltersDto } from "../dtos/ListDocumentsFilters.dto";
+import { ListDocumentsRespDto } from "../dtos/ListDocumentsResp.dto";
+import { Document } from "../entities/Document.entity";
+import { DocumentType } from "../entities/DocumentType.entity";
+import { DocumentStatus } from "../enums/DocumentStatus.enum";
+import { IDocumentRepository } from "../repositories/IDocumentRepository";
+import { GetDocumentsUseCase } from "./GetDocuments.useCase";
 
 describe('GetDocumentsUseCase', () => {
     let getDocumentsUseCase: GetDocumentsUseCase;

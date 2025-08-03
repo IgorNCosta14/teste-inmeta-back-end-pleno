@@ -1,7 +1,7 @@
-import { Document } from "../../../app/document/entities/Document.entity";
-import { DocumentStatus } from "../../../app/document/enums/DocumentStatus.enum";
-import { IDocumentRepository } from "../../../app/document/repositories/IDocumentRepository";
-import { SendDocumentUseCase } from "../../../app/document/useCases/SendDocument.useCase";
+import { Document } from "../entities/Document.entity";
+import { DocumentStatus } from "../enums/DocumentStatus.enum";
+import { IDocumentRepository } from "../repositories/IDocumentRepository";
+import { SendDocumentUseCase } from "./SendDocument.useCase";
 
 describe('SendDocumentUseCase', () => {
     let sendDocumentUseCase: SendDocumentUseCase;

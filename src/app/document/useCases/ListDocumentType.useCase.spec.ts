@@ -1,6 +1,6 @@
-import { DocumentType } from "../../../app/document/entities/DocumentType.entity";
-import { IDocumentTypeRepository } from "../../../app/document/repositories/IDocumentTypeRepository";
-import { ListDocumentTypeUseCase } from "../../../app/document/useCases/ListDocumentType.useCase";
+import { DocumentType } from "../entities/DocumentType.entity";
+import { IDocumentTypeRepository } from "../repositories/IDocumentTypeRepository";
+import { ListDocumentTypeUseCase } from "./ListDocumentType.useCase";
 
 describe('ListDocumentTypeUseCase', () => {
     let listDocumentTypeUseCase: ListDocumentTypeUseCase;

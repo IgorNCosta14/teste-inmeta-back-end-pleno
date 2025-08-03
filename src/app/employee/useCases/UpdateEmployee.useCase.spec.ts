@@ -1,7 +1,7 @@
-import { UpdateEmployeeDto } from "../../../app/employee/dtos/UpdateEmployee.dto";
-import { Employee } from "../../../app/employee/entities/Employee.entity";
-import { IEmployeeRepository } from "../../../app/employee/repositories/IEmployeeRepository";
-import { UpdateEmployeeUseCase } from "../../../app/employee/useCases/UpdateEmployee.useCase";
+import { UpdateEmployeeDto } from "../dtos/UpdateEmployee.dto";
+import { Employee } from "../entities/Employee.entity";
+import { IEmployeeRepository } from "../repositories/IEmployeeRepository";
+import { UpdateEmployeeUseCase } from "./UpdateEmployee.useCase";
 
 describe('UpdateEmployeeUseCase', () => {
     let updateEmployeeUseCase: UpdateEmployeeUseCase;

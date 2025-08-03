@@ -1,6 +1,6 @@
-import { ListEmployeesFiltersDto } from "../../../app/employee/dtos/ListEmployeesFilters.dto";
-import { IEmployeeRepository } from "../../../app/employee/repositories/IEmployeeRepository";
-import { ListEmployeesUseCase } from "../../../app/employee/useCases/ListEmployees.useCase";
+import { ListEmployeesFiltersDto } from "../dtos/ListEmployeesFilters.dto";
+import { IEmployeeRepository } from "../repositories/IEmployeeRepository";
+import { ListEmployeesUseCase } from "./ListEmployees.useCase";
 
 describe('ListEmployeesUseCase', () => {
     let listEmployeesUseCase: ListEmployeesUseCase;
