@@ -1,6 +1,6 @@
-import { CreateEmployeeUseCase } from './CreateEmployee.useCase';
-import { IEmployeeRepository } from '../repositories/IEmployeeRepository';
-import { CreateEmployeeDto } from '../dtos/CreateEmployee.dto';
+import { CreateEmployeeUseCase } from '../../../app/employee/useCases/CreateEmployee.useCase';
+import { IEmployeeRepository } from '../../../app/employee/repositories/IEmployeeRepository';
+import { CreateEmployeeDto } from '../../../app/employee/dtos/CreateEmployee.dto';
 
 describe('CreateEmployeeUseCase', () => {
     let createEmployeeUseCase: CreateEmployeeUseCase;
